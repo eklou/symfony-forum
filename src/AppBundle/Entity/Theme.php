@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\Post;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Theme
@@ -25,9 +26,14 @@ class Theme
 
     /**
      * @var string
-     *
+     * @Assert\Length(min=3, max=15,
+     *     minMessage="un thème doit comporter au moins {{ limit }} caractères",
+     *     maxMessage="un thème ne peut comporter plus de {{ limit }} caractères"
+     * )
      * @ORM\Column(name="name", type="string", length=50, unique=true)
      */
+
+    // les contraintes doivent etre rajouter dans l'entité...
     private $name;
 
     /**
