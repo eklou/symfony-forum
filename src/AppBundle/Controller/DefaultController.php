@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\AppBundle;
+use AppBundle\Entity\Post;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,10 +19,21 @@ class DefaultController extends Controller
     {
         $repository = $this->getDoctrine()
             ->getRepository("AppBundle:Theme");
+        $postRepostory = $this->getDoctrine()
+            ->getRepository("AppBundle:Post");
 
-        $themeList = $repository->getAllThemes()->getArrayResult();
 
-        return $this->render('default/index.html.twig', ["themeList" => $themeList]);
+        $list = $repository->getAllThemes()->getArrayResult();
+        $postListByYear = $postRepostory->getPostsGroupedByYear();
+
+        //$themeList = $repository->getAllThemes()->getArrayResult();
+
+        //return $this->render('default/index.html.twig',
+          //  ["themeList" => $themeList]);
+
+        return $this->render('default/index.html.twig',
+            ["postList" => $postListByYear,
+                "themeList" => $list]);
     }
 
     /**

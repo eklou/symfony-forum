@@ -21,4 +21,19 @@
 
 {% endblock %}
 
+{% block aside %}
+
+    <h3>les posts par annee</h3>
+
+    <ul>
+        {% for item in postList %}
+            <li><a href="{{ path('post_by_year', {'year': item.yearPublished}) }}">
+                    {{ item.yearPublished }} ({{ item.numberOfPosts }})
+                </a></li>
+
+        {% endfor %}
+    </ul>
+
+{% endblock %}
+
 

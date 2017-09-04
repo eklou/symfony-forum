@@ -8,16 +8,23 @@
         </li>
     </ol>
 
-    {{ dump(all) }}
+
+    {% if theme is defined %}
 
     <h1>{{ theme.name }}</h1>
+
+{% elseif title is defined %}
+
+    <h1>{{ title }}</h1>
+
+{% endif %}
 
     <table class="table">
         <tbody>
         {% for post in postList %}
             <tr>
                 <td>
-                    <a href="{{ path('post_details', {'id': post.id}) }}">
+                    <a href="{{ path('post_details', {'slug': post.slug}) }}">
                         {{ post.title }}
                     </a>
                 </td>
