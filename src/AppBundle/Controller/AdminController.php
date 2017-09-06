@@ -6,6 +6,7 @@ use AppBundle\Entity\Theme;
 use AppBundle\Form\ThemeType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -16,6 +17,34 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class AdminController extends Controller
 {
+    /**
+     * @route ("/", name= "admin_home")
+     * @return Response
+     */
+
+    public function indexAction(){
+        return $this->render("admin/index.html.twig");
+    }
+
+    /**
+     * @route("/login", name="admin_login")
+     * @return Response
+     */
+    public function admin_loginAction(){
+
+        $securityUtils = $this->get("security.authentication_utils");
+        $lastUserName = $securityUtils->getLastUsername();
+        $error = $securityUtils->getLastAuthenticationError();
+
+
+        return $this->render("default/generic-login.html.twig", [
+            "action" => $this->generateUrl("admin_login_check"),
+            "title" =>"Login des administrateurs",
+            "userName" => $lastUserName,
+            "error" =>$error
+
+        ]);
+    }
 
     /**
      * @Route("/themes", name="admin_themes")
@@ -56,4 +85,13 @@ class AdminController extends Controller
 
     }
 
+
+    /**
+     * @route("/secure" ,name= "admin_olny_god")
+     * @return Reponse
+     */
+
+    public function onlyGodAction(){
+        return $this->render("admin/god.html.twig");
+    }
 }

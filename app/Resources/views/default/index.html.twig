@@ -19,6 +19,10 @@
         </tbody>
     </table>
 
+    {% if is_granted('ROLE_AUTHOR') %}
+    <h2>Nouveau Post</h2>
+    {{ form(postForm) }}
+{% endif %}
 {% endblock %}
 
 {% block aside %}
@@ -34,6 +38,12 @@
         {% endfor %}
     </ul>
 
+{% endblock %}
+
+{% block JavaScript %}
+    {{ parent }}
+
+    <script src="{{ asset('bundles/ivoryckeditor/ckeditor.js') }}"></script>
 {% endblock %}
 
 

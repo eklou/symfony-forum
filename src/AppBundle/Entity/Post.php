@@ -40,9 +40,9 @@ class Post
     private $text;
 
     /**
-     * @var string
+     * @var Author
      *
-     * @ORM\Column(name="author", type="string", length=50)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Author", inversedBy="post")
      */
     private $author;
 
@@ -59,7 +59,7 @@ class Post
     private $answers;
 
     /**
-     * @return string
+     * @return Author
      */
     public function getAuthor()
     {
@@ -67,10 +67,10 @@ class Post
     }
 
     /**
-     * @param string $author
+     * @param Author $author
      * @return Post
      */
-    public function setAuthor($author)
+    public function setAuthor(Author $author)
     {
         $this->author = $author;
 
@@ -108,9 +108,6 @@ class Post
     {
         $this->slug = $slug;
     }
-
-
-
 
 
     /**
