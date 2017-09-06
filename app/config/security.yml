@@ -7,18 +7,16 @@ security:
         in_memory:
             memory:
               users:
-                admin:
-                  password: $2y$15$WuFRH7AmWjESYiJp0.8X5uZQi6fjg8SZmyQGCFVwco4f5Y62MkU1.
-                  # role toujours en majuscule...
-                  roles: ROLE_ADMIN
+                admin: {password: $2y$15$z/7jwr9xRbJcxM2Wl4l60euBPOiqUSxvHT8dej8CH2GrJrZXoDkke, roles: ["ROLE_ADMIN"]}
                 god:
-                  password: $2y$15$ustiD9WRTWySqlD9gZbmCeJnyskjsrLveae4IwMjNfDJgxQdxAmQi
-                  roles: ["ROLE_SUPER_ADMIN" ,"ROLE_ADMIN"]
+                  password: $2y$15$BgbGTBL253s082G1RQnjrOPR0NsIaMrxNbFcDGmeqsFNuTEjSxJRi
+                  roles: ["ROLE_SUPER_ADMIN", "ROLE_ADMIN"]
 
         author_provider:
-            entity:
-              class: AppBundle:Author
-              property: email
+          entity:
+            class: AppBundle:Author
+            property: email
+
     encoders:
         Symfony\Component\Security\Core\User\User:
           algorithm: bcrypt
@@ -46,23 +44,21 @@ security:
             login_path: admin_login
             check_path: admin_login_check
             default_target_path: admin_home
-
           logout:
-              path: admin_logout
-              target: homepage
+            path: admin_logout
+            target: homepage
 
         main:
             anonymous: true
             pattern: ^/
             provider: author_provider
             form_login:
-                login_path: author_login
-                check_path: author_login_check
-                default_target_path: homepage
+              login_path: author_login
+              check_path: author_login_check
+              default_target_path: homepage
             logout:
-                path: author_logout
-                target: homepage
-
+              path: author_logout
+              target: homepage
             # activate different ways to authenticate
 
             # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
@@ -70,7 +66,5 @@ security:
 
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
             #form_login: ~
-
-
     access-control:
-      - {path:^/admin/secure, roles: ROLE_SUPER_ADMIN}
+      - {path: ^/admin/secure, roles: ROLE_SUPER_ADMIN }

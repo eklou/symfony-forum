@@ -2,14 +2,15 @@
 
 {% block body %}
 
-    <h2>Nouveau theme</h2>
-{{ form(themeForm) }}
+    <h2>Nouveau thème</h2>
+    {{ form(themeForm) }}
 
-    <h2>Liste des themes</h2>
+    <h2>Liste des thèmes</h2>
 
     <ul>
         {% for theme in themeList %}
-            <li> {{ theme.name }}</li>
-            {% endfor %}
+            <li>{{ theme.name }}</li>
+        {% endfor %}
     </ul>
+
 {% endblock %}

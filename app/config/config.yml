@@ -59,6 +59,9 @@ doctrine:
         #path: '%database_path%'
 
     orm:
+        auto_generate_proxy_classes: '%kernel.debug%'
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
         dql:
             datetime_functions:
                 date:           Oro\ORM\Query\AST\Functions\SimpleFunction
@@ -88,10 +91,6 @@ doctrine:
                 replace:        Oro\ORM\Query\AST\Functions\String\Replace
                 date_format:    Oro\ORM\Query\AST\Functions\String\DateFormat
 
-        auto_generate_proxy_classes: '%kernel.debug%'
-        naming_strategy: doctrine.orm.naming_strategy.underscore
-        auto_mapping: true
-
 # Swiftmailer Configuration
 swiftmailer:
     transport: '%mailer_transport%'
@@ -100,15 +99,9 @@ swiftmailer:
     password: '%mailer_password%'
     spool: { type: memory }
 
-
 stof_doctrine_extensions:
   default_locale: fr_FR
-  uploadable:
-    default_file_path: "%kernel.root_dir%/../web/uploadedFiles"
   orm:
     default:
       sluggable: true
-      uploadable: true
-      loggable: true
-
 

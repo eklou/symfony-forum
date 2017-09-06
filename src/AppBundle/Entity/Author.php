@@ -2,8 +2,8 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Tests\Common\Collections\ArrayCollectionTest;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -57,13 +57,13 @@ class Author implements \Serializable, UserInterface
     private $plainPassword;
 
     /**
-     * @var AArrayCollection
+     * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Post", mappedBy="author")
      */
     private $posts;
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getPlainPassword()
     {
@@ -71,7 +71,7 @@ class Author implements \Serializable, UserInterface
     }
 
     /**
-     * @param mixed $plainPassword
+     * @param string $plainPassword
      * @return Author
      */
     public function setPlainPassword($plainPassword)
@@ -79,6 +79,7 @@ class Author implements \Serializable, UserInterface
         $this->plainPassword = $plainPassword;
         return $this;
     }
+
 
     /**
      * Get id
@@ -214,10 +215,10 @@ class Author implements \Serializable, UserInterface
     public function unserialize($serialized)
     {
         $data = unserialize($serialized);
-        $this->id =$data[0];
-        $this->email =$data[1];
-        $this->name =$data[2];
-        $this->firstName =$data[3];
+        $this->id = $data[0];
+        $this->email = $data[1];
+        $this->name = $data[2];
+        $this->firstName = $data[3];
     }
 
     /**
@@ -238,7 +239,6 @@ class Author implements \Serializable, UserInterface
      */
     public function getRoles()
     {
-
         return ["ROLE_AUTHOR"];
     }
 

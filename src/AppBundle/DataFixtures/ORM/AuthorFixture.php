@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: formation
- * Date: 06/09/2017
- * Time: 10:10
- */
+
 
 namespace AppBundle\DataFixtures\ORM;
 
@@ -16,9 +11,8 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class AuthorFixture extends AbstractFixture implements OrderedFixtureInterface , ContainerAwareInterface
+class AuthorFixture extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
-
     /**
      * @var ContainerInterface
      */
@@ -31,43 +25,38 @@ class AuthorFixture extends AbstractFixture implements OrderedFixtureInterface ,
      */
     public function load(ObjectManager $manager)
     {
-
-        $encoderFactory =$this->container->get("security.encoder_factory");
+        $encoderFactory = $this->container->get("security.encoder_factory");
         $encoder = $encoderFactory->getEncoder(new Author());
         $password = $encoder->encodePassword("123", null);
 
         $author = new Author();
-        $author->setName("HUGO")
-            ->setFirstName("Vicror")
-            ->setEmail("V.hugo@miserable.fr")
+        $author->setName("Hugo")
+            ->setFirstName("Victor")
+            ->setEmail("v.hugo@miserable.fr")
             ->setPassword($password);
 
         $this->addReference("auteur_1", $author);
         $manager->persist($author);
 
-
         $author = new Author();
         $author->setName("Ducasse")
             ->setFirstName("Isidore")
-            ->setEmail("lautremont@miserable.fr")
+            ->setEmail("lautreamont@maldoror.com")
             ->setPassword($password);
 
         $this->addReference("auteur_2", $author);
         $manager->persist($author);
 
-
         $author = new Author();
         $author->setName("Trump")
             ->setFirstName("Donald")
-            ->setEmail("donald@miserable.fr")
+            ->setEmail("president@moron.con")
             ->setPassword($password);
 
         $this->addReference("auteur_3", $author);
         $manager->persist($author);
 
         $manager->flush();
-
-
     }
 
     /**
@@ -76,7 +65,6 @@ class AuthorFixture extends AbstractFixture implements OrderedFixtureInterface ,
      * @return integer
      */
     public function getOrder()
-
     {
         return 2;
     }

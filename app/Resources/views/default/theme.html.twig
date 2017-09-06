@@ -10,14 +10,10 @@
 
 
     {% if theme is defined %}
-
-    <h1>{{ theme.name }}</h1>
-
-{% elseif title is defined %}
-
-    <h1>{{ title }}</h1>
-
-{% endif %}
+        <h1>{{ theme.name }}</h1>
+    {%  elseif title is defined %}
+        <h1>{{ title }}</h1>
+    {% endif %}
 
     <table class="table">
         <tbody>
@@ -29,14 +25,6 @@
                     </a>
                 </td>
                 <td>{{ post.answers | length }} réponses</td>
-                <td>
-                    {% if is_granted('ROLE_AUTHOR') %}
-                        {% if app.user.id == post.author.id %}
-                            <a href="{{ path('post_edit', {'id': post.id}) }}" class="btn btn-xs">Modifier</a>
-                        {% endif %}
-                    {% endif %}
-
-                </td>
             </tr>
         {% endfor %}
         </tbody>

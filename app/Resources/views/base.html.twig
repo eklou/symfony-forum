@@ -10,13 +10,16 @@
     </head>
     <body class="container-fluid">
 
-    <div content="row">
+    <div class="row">
         {% include("_navbar.html.twig") %}
     </div>
 
         <header class="col-md-10 col-md-offset-1 well">
             <h1>Mon forum</h1>
         </header>
+
+
+
 
         <div class="row">
             <div class="col-md-7 col-md-offset-1">
@@ -31,7 +34,6 @@
         {% block javascripts %}
             <script src="{{ asset('bower-components/jquery/dist/jquery.min.js') }}"></script>
             <script src="{{ asset('bower-components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-
-{% endblock %}
+        {% endblock %}
     </body>
 </html>

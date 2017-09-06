@@ -58,7 +58,7 @@ class PostFixture extends AbstractFixture implements OrderedFixtureInterface
 
         foreach ($postData as $item){
             $entity = new Post();
-            $author_reference = "auteur_".mt_rand(1,3);
+            $author_reference = "auteur_". mt_rand(1,3);
             $entity->setTitle($item["title"])
                 ->setTheme($this->getReference($item["theme"]))
                 ->setCreatedAt($faker->dateTimeThisYear())

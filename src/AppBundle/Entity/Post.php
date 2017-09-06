@@ -13,12 +13,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @ORM\Table(name="posts")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PostRepository")
- * @Gedmo\Uploadable(
- *     allowOverwrite=true,
- *     filenameGenerator="SHA1",
- *     maxSize="20000000",
- *     allowedTypes="image/jpeg,image/png
- * )
  */
 class Post
 {
@@ -48,18 +42,9 @@ class Post
     /**
      * @var Author
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Author", inversedBy="post")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Author", inversedBy="posts")
      */
     private $author;
-
-    /**
-     * @var string
-     * @ORM\Column(name="image_file_name", type="string", length=80, nullable=true)
-     * @Gedmo\UploadableFileName()
-     */
-    private $imageFileName;
-
-
 
     /**
      * @var Theme
@@ -72,6 +57,39 @@ class Post
      * @ORM\OneToMany(targetEntity="Answer", mappedBy="post")
      */
     private $answers;
+
+    /**
+     * @ORM\Column(name="slug", type="string", length=255, unique=true)
+     * @Gedmo\Slug(fields={"title"})
+     * @var string
+     */
+    private $slug;
+
+    /**
+     * @return string
+     */
+    public function getAuthorFullName(){
+        return $this->author->getFirstName(). " ". $this->author->getName();
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     * @return Post
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+        return $this;
+    }
+
 
     /**
      * @return Author
@@ -101,28 +119,6 @@ class Post
     private $createdAt;
 
 
-    /**
-     * @ORM\Column(name="slug", type="string", length=255, unique=true)
-     * @Gedmo\Slug(fields={"title"})
-     * @var string
-     */
-    private $slug;
-
-    /**
-     * @return string
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
-    /**
-     * @param string $slug
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-    }
 
 
     /**

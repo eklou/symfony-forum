@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Repository;
+use AppBundle\Entity\Post;
 
 /**
  * ThemeRepository
@@ -10,20 +11,14 @@ namespace AppBundle\Repository;
  */
 class ThemeRepository extends \Doctrine\ORM\EntityRepository
 {
-    //public function getAllThemes(){
-        // 't' pour allias theme
-        //$qb = $this->createQueryBuilder( 't');
-        //$qb->select("t.id, UPPER(t.name) as name");
+    public function getAllThemes(){
+       $qb = $this->createQueryBuilder('t');
+       $qb->select("t.name, count(p.id) as numberOfPosts, t.id")
+       ->innerJoin("t.posts", "p")
+       ->groupBy("t.id");
 
-        public function getAllThemes(){
-        // 't' pour allias theme
-        $qb = $this->createQueryBuilder( 't');
-        $qb->select("t.name, count(p.id) as numberOfPosts, t.id")
+       dump($qb->getDQL());
 
-        ->innerJoin("t.posts",  "p")
-        ->groupBy("t.id");
-
-        dump($qb->getDQL());
-        return $qb->getQuery();
+       return $qb->getQuery();
     }
 }

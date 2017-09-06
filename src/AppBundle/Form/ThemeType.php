@@ -15,13 +15,13 @@ class ThemeType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', TextType::class, ["label" =>"votre theme", "required" => true])
-        ->add("submit", SubmitType::class,
-            [
-                "label" =>"valider",
-                "attr" => ["class" =>"btn btn-primary"]
-            ]
-        );
+        $builder->add('name', TextType::class, ["label"=>"Votre thème", "required"=>true])
+                ->add("submit", SubmitType::class,
+                    [
+                        "label"=>"Valider",
+                        "attr" => ["class"=>"btn btn-primary"]
+                    ]
+                );
     }
     
     /**
@@ -39,7 +39,7 @@ class ThemeType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appBundle_theme';
+        return 'appbundle_theme';
     }
 
 

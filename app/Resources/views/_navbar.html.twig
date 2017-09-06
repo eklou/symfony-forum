@@ -37,11 +37,11 @@
             </form>
             <ul class="nav navbar-nav navbar-right">
                 {% if is_granted('ROLE_ADMIN') %}
-                <li class="navbar-text">hello {{ app.user.userName }}</li>
-                <li><a href="{{ path('admin_logout') }}">Déconnexion</a></li>
-                {% else %}
-                <li><a href="{{ path('admin_login') }}">connexion admin</a></li>
-                {% endif %}
+                    <li class="navbar-text">Hello {{ app.user.userName }}</li>
+                    <li><a href="{{ path('admin_logout') }}">Déconnexion</a></li>
+                {%  else %}
+                    <li><a href="{{ path('admin_login') }}">Connexion admin</a></li>
+                {%  endif %}
 
             </ul>
         </div><!-- /.navbar-collapse -->

@@ -12,18 +12,20 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
 {
     public function getPostsGroupedByYear(){
         $qb = $this->createQueryBuilder("p");
-        $qb->select("YEAR(p.createdAt) as yearPublished,
-        COUNT(p.id) as numberOfPosts")
+
+        $qb->select("YEAR(p.createdAt)as yearPublished,
+                           COUNT(p.id) as numberOfPosts ")
             ->groupBy("yearPublished");
 
         return $qb->getQuery()->getArrayResult();
+
     }
 
-    public function getPostByYear($year){
+    public function getPostsByYear($year){
         $qb = $this->createQueryBuilder("p");
-        $qb->select("p")
+        $qb ->select("p")
             ->where("YEAR(p.createdAt)=:year")
-                ->setParameter("year", $year);
+            ->setParameter("year", $year);
 
         return $qb->getQuery()->getResult();
     }
