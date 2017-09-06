@@ -18,10 +18,7 @@ class AppKernel extends Kernel
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new Exercise\HTMLPurifierBundle\ExerciseHTMLPurifierBundle(),
-            new AppBundle\AppBundle(),
-            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
-            new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
-            new Exercise\HTMLPurifierBundle\ExerciseHTMLPurifierBundle(),
+            new AppBundle\AppBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

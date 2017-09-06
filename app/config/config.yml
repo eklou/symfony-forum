@@ -101,7 +101,11 @@ swiftmailer:
 
 stof_doctrine_extensions:
   default_locale: fr_FR
+  uploadable:
+    default_file_path: "%kernel.root_dir%/../web/uploadedFiles"
   orm:
     default:
       sluggable: true
+      uploadable: true
+      loggable: true
 

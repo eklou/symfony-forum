@@ -16,6 +16,10 @@
 
     <p>par {{ post.author.email }} le {{ post.createdAt | date('d/m/Y') }}</p>
 
+    {% if post.imageFileName %}
+        <img src="{{ asset('uploadedFiles/' ~ post.imageFileName) }}" class="img-circle">
+    {% endif %}
+
     <p>{{ post.text | purify}}</p>
 
     <hr>

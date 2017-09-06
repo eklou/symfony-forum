@@ -43,6 +43,10 @@ class DefaultController extends Controller
 
             //Traitement du formulaire
             if ($form->isSubmitted() and $form->isValid()) {
+
+                $uploadManager = $this->get("stof_doctrine_extensions.uploadable.manager");
+                $uploadManager->markEntityToUpload($post, $post->getImageFileName());
+
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($post);
                 $em->flush();
