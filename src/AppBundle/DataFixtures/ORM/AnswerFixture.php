@@ -36,7 +36,7 @@ class AnswerFixture extends AbstractFixture implements OrderedFixtureInterface
             $nbAnswers = mt_rand(3, 10);
 
             for($k=1; $k <= $nbAnswers; $k++){
-                $post = $this->getReference("post_{$k}");
+                $post = $this->getReference("post_{$i}");
 
                 $entity = new Answer();
                 $entity->setText($faker->text(mt_rand(30,200)))
