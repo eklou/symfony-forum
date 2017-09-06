@@ -31,26 +31,36 @@ class DefaultController extends Controller
         $list = $repository->getAllThemes()->getArrayResult();
         $postListByYear = $postRepostory->getPostsGroupedByYear();
 
-        // création du formulaire
+        // Gestion des nouveaux posts
 
-        $post = new Post();
-        $post ->setCreatedAt(new  \DateTime());
-        $form = $this->createForm(PostType::class, $post);
+        $user = $this->getUser();
+        $roles = isset($user)?$user->getRoles():[];
+        $formView= null;
+        if (in_array("ROLE_AUTHOR", $roles)) {
 
-        // Hydratation du formulaire
+            // création du formulaire
+            $post = new Post();
+            $post->setCreatedAt(new  \DateTime());
+            $post->setAuthor($user);
+            $form = $this->createForm(PostType::class, $post);
 
-        $form->handleRequest($request);
+            // Hydratation du formulaire
+            $form->handleRequest($request);
 
-        //traitement du formulaire
+            //traitement du formulaire
+            if ($form->isSubmitted() and $form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($post);
+                $em->flush();
 
-        if ($form->isSubmitted() and $form->isValid()){
-            $em = $this->getDoctrine()->getManager();
-            $em->persist ($post) ;
-            $em->flush();
+                //Redirection
+                return $this->redirectToRoute("/");
+
+            }
+
+            $formView = $form->createView();
 
         }
-
-
         //$themeList = $repository->getAllThemes()->getArrayResult();
 
         //return $this->render('default/index.html.twig',
@@ -59,7 +69,7 @@ class DefaultController extends Controller
         return $this->render('default/index.html.twig',
             ["postList" => $postListByYear,
                 "themeList" => $list,
-                "postForm" =>$form->createView()
+                "postForm" =>$formView
 
             ]);
     }

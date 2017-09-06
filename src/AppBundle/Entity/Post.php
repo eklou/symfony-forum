@@ -88,7 +88,7 @@ class Post
 
     /**
      * @ORM\Column(name="slug", type="string", length=255, unique=true)
-     * @Gedmo\Slug(fields={"author", "title"})
+     * @Gedmo\Slug(fields={"title"})
      * @var string
      */
     private $slug;
