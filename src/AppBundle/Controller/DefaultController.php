@@ -47,9 +47,9 @@ class DefaultController extends Controller
                 $uploadManager = $this->get("stof_doctrine_extensions.uploadable.manager");
                 $uploadManager->markEntityToUpload($post, $post->getImageFileName());
 
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($post);
-                $em->flush();
+                $this   ->get("post.manager")
+                        ->setPost($post)
+                        ->save();
 
                 //Redirection
                 return $this->redirectToRoute("homepage");

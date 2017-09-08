@@ -16,3 +16,8 @@ services:
         - "world"
         - "@app.service.hello_renderer"
       shared: false
+
+    post.manager:
+      class: AppBundle\Entity\Manager\PostManager
+      arguments:
+        - "@doctrine"
