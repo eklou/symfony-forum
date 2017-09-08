@@ -82,6 +82,25 @@ class Post
     /**
      * @return string
      */
+    public function getImageFileName()
+    {
+        return $this->imageFileName;
+    }
+
+    /**
+     * @param string $imageFileName
+     * @return Post
+     */
+    public function setImageFileName($imageFileName)
+    {
+        $this->imageFileName = $imageFileName;
+        return $this;
+    }
+
+
+    /**
+     * @return string
+     */
     public function getAuthorFullName(){
         return $this->author->getFirstName(). " ". $this->author->getName();
     }

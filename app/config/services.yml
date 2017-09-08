@@ -7,3 +7,17 @@ services:
     #service_name:
     #    class: AppBundle\Directory\ClassName
     #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
+    app.service.hello_renderer:
+        class: AppBundle\Service\HelloRenderer
+
+    service.hello:
+      class: AppBundle\Service\HelloService
+      arguments:
+        - "world"
+        - "@app.service.hello_renderer"
+      shared: false
+
+    post.manager:
+      class: AppBundle\Entity\Manager\PostManager
+      arguments:
+        - "@doctrine"

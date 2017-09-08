@@ -33,7 +33,7 @@ class PostType extends AbstractType
                 "placeholder" => "Choisissez un thème",
                 "choice_label" => "name"
             ])
-            ->add("imageFileName", FileType::class, ["label" =>"image", "required" =>false])
+            ->add("imageFileName", FileType::class, ["label" => "Image", "required"=> false])
             ->add('submit', SubmitType::class, ["label" => "Valider"]);
     }
     

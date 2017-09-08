@@ -47,9 +47,9 @@ class DefaultController extends Controller
                 $uploadManager = $this->get("stof_doctrine_extensions.uploadable.manager");
                 $uploadManager->markEntityToUpload($post, $post->getImageFileName());
 
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($post);
-                $em->flush();
+                $this   ->get("post.manager")
+                        ->setPost($post)
+                        ->save();
 
                 //Redirection
                 return $this->redirectToRoute("homepage");
@@ -145,5 +145,22 @@ class DefaultController extends Controller
                 "error" => $securityUtils->getLastAuthenticationError()
             ]
         );
+    }
+
+    /**
+     * @Route("/test-service")
+     * @return Response
+     */
+    public function testServiceAction(){
+
+        $helloService = $this->get("service.hello");
+        $helloService->setName("Bob");
+
+        $newHelloService = $this->get("service.hello");
+
+        $message =  $helloService->sayHello().
+                    ' '. $newHelloService->sayHello();
+
+        return $this->render("default/test-service.html.twig", ["message"=>$message]);
     }
 }
