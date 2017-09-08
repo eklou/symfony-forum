@@ -19,6 +19,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     maxSize="20000000",
  *     allowedTypes="image/jpeg,image/png"
  * )
+ * @Gedmo\Loggable(logEntryClass="AppBundle\Entity\Log")
  */
 class Post
 {
@@ -33,14 +34,14 @@ class Post
 
     /**
      * @var string
-     *
+     * @Gedmo\Versioned()
      * @ORM\Column(name="title", type="string", length=80)
      */
     private $title;
 
     /**
      * @var string
-     *
+     * @Gedmo\Versioned()
      * @ORM\Column(name="post_text", type="text")
      */
     private $text;
