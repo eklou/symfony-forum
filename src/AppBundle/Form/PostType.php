@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Form\Transformer\UploadedFileDataTransformer;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -16,6 +17,20 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PostType extends AbstractType
 {
+    /**
+     * @var UploadedFileDataTransformer
+     */
+    private $fileTransformer;
+
+    /**
+     * PostType constructor.
+     * @param UploadedFileDataTransformer $fileTransformer
+     */
+    public function __construct(UploadedFileDataTransformer $fileTransformer)
+    {
+        $this->fileTransformer = $fileTransformer;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -35,6 +50,8 @@ class PostType extends AbstractType
             ])
             ->add("imageFileName", FileType::class, ["label" => "Image", "required"=> false])
             ->add('submit', SubmitType::class, ["label" => "Valider"]);
+
+        $builder->addViewTransformer($this->fileTransformer);
     }
     
     /**

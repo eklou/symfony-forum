@@ -10,11 +10,12 @@ namespace AppBundle\Form\Transformer;
 
 
 use AppBundle\Entity\Post;
-use Faker\Provider\File;
+
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
+use Symfony\Component\HttpFoundation\File\File;
 
-class UploadedFileFileDataTransformer implements DataTransformerInterface
+class UploadedFileDataTransformer implements DataTransformerInterface
 {
     /**
      * @var string
@@ -66,7 +67,7 @@ class UploadedFileFileDataTransformer implements DataTransformerInterface
                 $uploadedFile = new File($imagePath);
                 $value->setImageFileName($uploadedFile);
             }
-            
+
         }
 
         return $value;

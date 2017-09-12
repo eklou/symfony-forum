@@ -132,23 +132,7 @@ class Post
         return $this->author;
     }
 
-    /**
-     * @return string
-     */
-    public function getImageFileName()
-    {
-        return $this->imageFileName;
-    }
 
-    /**
-     * @param string $imageFileName
-     * @return Post
-     */
-    public function setImageFileName($imageFileName)
-    {
-        $this->imageFileName = $imageFileName;
-        return $this;
-    }
 
     /**
      * @param Author $author

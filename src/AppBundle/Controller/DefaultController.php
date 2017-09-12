@@ -36,16 +36,15 @@ class DefaultController extends Controller
             $post = new Post();
             $post->setCreatedAt(new \DateTime());
             $post->setAuthor($user);
-            $form = $this->createForm(PostType::class, $post);
 
-            //Hydratation de l'entité post
-            $form->handleRequest($request);
+            $formHandler = $this->get("post.form_handler")
+                            ->setPost($post);
 
             //Traitement du formulaire
-            if ($form->isSubmitted() and $form->isValid()) {
+            if ($formHandler->process()) {
 
-                $uploadManager = $this->get("stof_doctrine_extensions.uploadable.manager");
-                $uploadManager->markEntityToUpload($post, $post->getImageFileName());
+                //$uploadManager = $this->get("stof_doctrine_extensions.uploadable.manager");
+                //$uploadManager->markEntityToUpload($post, $post->getImageFileName());
 
                 $this   ->get("post.manager")
                         ->setPost($post)
@@ -55,7 +54,7 @@ class DefaultController extends Controller
                 return $this->redirectToRoute("homepage");
             }
 
-            $formView = $form->createView();
+            $formView = $formHandler->getFormView();
         }
         //Fin de la gestion des nouveaux posts
 

@@ -20,4 +20,35 @@ services:
     post.manager:
       class: AppBundle\Entity\Manager\PostManager
       arguments:
-        - "@doctrine"
+        - "@doctrine.orm.entity_manager"
+
+    post.entity:
+      class: AppBundle\Entity\Post
+
+
+    post.form_handler:
+      class: AppBundle\Form\Handler\PostFormHandler
+      arguments:
+        - "@post.entity"
+        - "AppBundle\\Form\\PostType"
+        - "@form.factory"
+        - "@post.manager"
+        - "@request_stack"
+        - "@stof_doctrine_extensions.uploadable.manager"
+
+    post.file_datatransformer:
+      class: AppBundle\Form\Transformer\UploadedFileDataTransformer
+      arguments:
+        - "%stof_doctrine_extensions.default_file_path%"
+
+    post.form_type:
+      class: AppBundle\Form\PostType
+      arguments:
+        - "@post.file_datatransformer"
+      tags:
+        - {name: form.type}
+
+    twig.filter.elapsed:
+          class: AppBundle\Twig\ElapsedTimeFilter
+          tags:
+            - {name: "twig.extension"}
